@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body style="overflow: hidden;">
+		<header class='container-fluid'>
+			<h1 style="text-align: center;padding: 18px;margin: 24px;color: #b44222; background-color: #4caf50;font-weight: bold;">Controller Panel</h1>
+		</header>
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class="col-lg-3">
+					
+				</div>
+				<div class="card bg-info col-lg-6">
+					<div id="control1">
+						<button class='btn-danger' id='up' type="submit" class="btn btn-danger"><i style='font-size: 50px;' class="fa fa-arrow-up" ><!-- <span style="font-size: 20px">Forward</span> --></i></button>
+					</div>
+					<div id="control2">
+						<button class='btn-danger' id='down' type="submit" class="btn btn-danger"><i style='font-size: 50px;' class="fa fa-arrow-down"><!-- <span style="font-size: 20px">Down</span> --></i></button>
+					</div>
+					<div id="control3">
+						<button class='btn-danger' id='right' type="submit" class="btn btn-danger"><i style='font-size: 50px;' class="fa fa-arrow-right"><!-- <span style="font-size: 20px">Right</span> --></i></button>
+					</div>
+					<div id="control4">
+						<button class='btn-danger' id='left' type="submit" class="btn btn-danger"><i style='font-size: 50px;' class="fa fa-arrow-left"><!-- <span style="font-size: 20px">Left</span> --></i></button>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					
+				</div>
+			</div>
+		</div>
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var height=$(window).innerHeight();
+				var width=$(window).innerWidth();
+				width=width/2;
+				$('body').height(height);
+				console.log('height is: '+height+'and width is: '+width);
+				$(".card").css({'position':'relative','top':height/6,'margin':'20px','padding':'15px','height':height/2});
+				$("#control1").css({'position':'absolute','left':width/2,'top':'40px'});
+				$("#control2").css({'position':'absolute','left':width/2,'top':'160px'});
+				$("#control4").css({'position':'absolute','left':width/2-width/8,'top':'100px'});
+				$("#control3").css({'position':'absolute','left':width/2+width/8,'top':'100px'});
+
+				var socket=io.connect();
+				$('#up').mousedown(function(){
+					socket.emit('up',{state:1});
+					socket.on('upResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+				$('#up').mouseup(function(){
+					socket.emit('up',{state:0});
+					socket.on('upResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+				$('#down').mousedown(function(){
+					socket.emit('down',{state:1});
+					socket.on('downResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+				$('#down').mouseup(function(){
+					socket.emit('down',{state:0});
+					socket.on('downResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+				$('#left').mousedown(function(){
+					socket.emit('left',{state:1});
+					socket.on('leftResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+				$('#left').mouseup(function(){
+					socket.emit('left',{state:0});
+					socket.on('leftResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+				$('#right').mousedown(function(){
+					socket.emit('right',{state:1});
+					socket.on('rightResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+				$('#right').mouseup(function(){
+					socket.emit('right',{state:0});
+					socket.on('rightResponse',function(data){
+						$('h1').text(data.data);
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
