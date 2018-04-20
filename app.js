@@ -36,7 +36,7 @@ io.sockets.on('connection',function(socket){
 			socket.emit('upResponse',{data:'up button is up again'});
 		}
 	});
-	socket.on('down',function(){
+	socket.on('down',function(data){
 		if(data.state){
 			backward();
 			socket.emit('downResponse',{data:'down button is down now'});
@@ -46,7 +46,7 @@ io.sockets.on('connection',function(socket){
 			socket.emit('downResponse',{data:'down button is up again'});
 		}
 	});
-	socket.on('right',function(){
+	socket.on('right',function(data){
 		if(data.state){
 			turnRight();
 			socket.emit('rightResponse',{data:'right button is down now'});
@@ -56,7 +56,7 @@ io.sockets.on('connection',function(socket){
 			socket.emit('rightResponse',{data:'right button is up again'});
 		}
 	});
-	socket.on('left',function(){
+	socket.on('left',function(data){
 		if(data.state){
 			turnLeft();
 			socket.emit('leftResponse',{data:'left button is down now'});
