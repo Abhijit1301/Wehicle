@@ -28,9 +28,8 @@ app.post('/login',urlencodedParser,function(req,res){
 	}
 });
 io.sockets.on('connection',function(socket){
-	ss(socket).on('watch',function(stream){
-		fs.createReadStream(__dirname+'/..test.mp4').pipe(stream);
-	});
+	//ss(socket).on('watch',function(stream){
+		//fs.createReadStream(__dirname+'/..test.mp4').pipe(stream);
 	socket.on('up',function(data){
 		if(data.state){
 			forward();
