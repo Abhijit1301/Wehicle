@@ -7,8 +7,9 @@
 	</head>
 	<body style="overflow: hidden;">
 		<header class='container-fluid'>
-			<h1 style="text-align: center;padding: 18px;margin: 24px;color: #b44222; background-color: #4caf50;font-weight: bold;">Controller Panel</h1>
+			<h1 style="text-align: center;padding: 18px;margin: 24px;color: #b44222; background-color: #4caf50;font-weight: bold;">Control Panel</h1>
 		</header>
+		<button id='watch'>Get Video</button>
 		<div class='container-fluid'>
 			<div class='row'>
 				<div class="col-lg-3">
@@ -39,6 +40,7 @@
 		<!-- Latest compiled JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<!-- <script src="/public/socket.io-stream.js"></script> -->
 		<script type="text/javascript">
 			$(document).ready(function(){
 				var height=$(window).innerHeight();
@@ -53,52 +55,55 @@
 				$("#control3").css({'position':'absolute','left':width/2+width/8,'top':'100px'});
 
 				var socket=io.connect();
+				$('#watch').click(function(){
+					console.log('watch button clicked');
+				});
 				$('#up').mousedown(function(){
 					socket.emit('up',{state:1});
 					socket.on('upResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 				$('#up').mouseup(function(){
 					socket.emit('up',{state:0});
 					socket.on('upResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 				$('#down').mousedown(function(){
 					socket.emit('down',{state:1});
 					socket.on('downResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 				$('#down').mouseup(function(){
 					socket.emit('down',{state:0});
 					socket.on('downResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 				$('#left').mousedown(function(){
 					socket.emit('left',{state:1});
 					socket.on('leftResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 				$('#left').mouseup(function(){
 					socket.emit('left',{state:0});
 					socket.on('leftResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 				$('#right').mousedown(function(){
 					socket.emit('right',{state:1});
 					socket.on('rightResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 				$('#right').mouseup(function(){
 					socket.emit('right',{state:0});
 					socket.on('rightResponse',function(data){
-						$('h1').text(data.data);
+						console.log(data.data);
 					});
 				});
 			});

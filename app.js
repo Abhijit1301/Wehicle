@@ -3,6 +3,8 @@ var app=express();
 var server=require('http').createServer(app);
 var io=require('socket.io').listen(server);
 var bodyParser=require('body-parser');
+//var ss=require('socket.io-stream');
+//var fs = require("fs");
 var gpio = require('pigpio').Gpio;
 server.listen(3000);
 
@@ -26,6 +28,9 @@ app.post('/login',urlencodedParser,function(req,res){
 	}
 });
 io.sockets.on('connection',function(socket){
+	ss(socket).on('watch',function(stream){
+		fs.createReadStream(__dirname+'/..test.mp4').pipe(stream);
+	});
 	socket.on('up',function(data){
 		if(data.state){
 			forward();
@@ -143,4 +148,8 @@ initialize();
 function stopMotor(){
 	PWMA.digitalWrite(0);
 	PWMB.digitalWrite(0);
+	PInA1.digitalWrite(0);
+	PInA2.digitalWrite(0);
+	PInB1.digitalWrite(0);
+	PInB2.digitalWrite(0);
 }
